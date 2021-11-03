@@ -4,12 +4,12 @@ import {juggler} from '@loopback/repository';
 const config = {
   name: 'mongo',
   connector: 'mongodb',
-  url: 'mongodb+srv://mario:6u3rr3r0@cluster0.zvgvr.mongodb.net/mguerrero_production?retryWrites=true&w=majority',
-  host: 'cluster0.zvgvr.mongodb.net',
+  url: '',
+  host: 'localhost',
   port: 27017,
-  user: 'mario',
-  password: '6u3rr3r0',
-  database: 'mguerrero_production',
+  user: '',
+  password: '',
+  database: 'city',
   useNewUrlParser: true
 };
 
@@ -30,6 +30,3 @@ export class MongoDataSource extends juggler.DataSource
     super(dsConfig);
   }
 }
-
-
-

@@ -5,8 +5,8 @@ import {
   get,
   getModelSchemaRef, param, response
 } from '@loopback/rest';
-import {Estados, postales} from '../models';
-import {EstadosRepository, PostalesRepository, ZonasRepository} from '../repositories';
+import {Precios} from '../models';
+import {EstadosRepository, PostalesRepository, PreciosRepository} from '../repositories';
 
 export class PostalesController {
   constructor(
@@ -16,60 +16,104 @@ export class PostalesController {
     @repository(EstadosRepository)
     public estadosRepository: EstadosRepository,
 
-    @repository(ZonasRepository)
-    public zonasRepository: ZonasRepository,
+    @repository(PreciosRepository)
+    public preciosRepository: PreciosRepository,
   ) { }
 
-  @get('/postales/{c_postal}/{kilogramos}/{formaPago}')
+  @get('/postales/{c_postal}/{kilogramos}/{formaPago}')//objeto
   @response(200, {
     description: 'Array of Postales model instances',
     content: {
       'application/json': {
         schema: {
           type: 'array',
-          items: getModelSchemaRef(postales, {includeRelations: true}),
+          items: getModelSchemaRef(Precios, {includeRelations: true}),
         },
       },
     },
   })
   async getEstado(
+    //mete todo esto dentro de un objeto?
     @param.path.number('c_postal') c_postal: number,
     @param.path.number('kilogramos') kilogramos: number,
     @param.path.string('formaPago') c_poformaPagostal: string,
-  ): Promise<postales[]> {
+  ): Promise<object> {
 
     let postal = this.postalesRepository.find({where: {d_codigo: c_postal}, fields: ['c_estado']});
-    let codEstado = (await postal).map((postal) => postal.c_estado);;
+    let codEstado = (await postal).map((postal) => postal.c_estado);
     let estado = this.estadosRepository.find({where: {cod_estado: codEstado[0]}, fields: ['zona']});
     let zona = (await estado).map((estado) => estado.zona);
-    let zonaConsulta: String = zona[0];
-    console.log(zonaConsulta);
-    //let precio = this.zonasRepository.find({where: {kilogramo: kilogramos}, fields: [zonaConsulta]});
-    //let total = (await estado).map((estado) => estado.zona);
-
-    console.log(zona[0]);
+    let cantidad;
 
 
-    return postal;
+    if (kilogramos < 9) {
+      let prueba = this.preciosRepository.find({where: {zonas: zona[0]}});
+      let resp;
+
+      switch (kilogramos) {
+        case 1:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_1);
+          cantidad = resp[0];
+          break;
+
+        case 2:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_2);
+          cantidad = resp[0];
+          break;
+
+        case 3:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_3);
+          cantidad = resp[0];
+          break;
+
+        case 4:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_4);
+          cantidad = resp[0];
+          break;
+
+        case 5:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_5);
+          cantidad = resp[0];
+          break;
+
+        case 6:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_6);
+          cantidad = resp[0];
+          break;
+
+        case 7:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_7);
+          cantidad = resp[0];
+          break;
+
+        case 8:
+          resp = (await prueba).map((prueba) => prueba.kilogramo_8);
+          cantidad = resp[0];
+          break;
+        default:
+          break;
+      }
+
+    } else {
+      let base = this.preciosRepository.find({where: {zonas: zona[0]}});
+      let baseSum = (await base).map((base) => base.kilogramo_8);
+      let extra = this.preciosRepository.find({where: {zonas: zona[0]}});
+      let extraSum = (await extra).map((extra) => extra.kilogramo_9);
+
+      cantidad = baseSum[0] + (extraSum[0] * (kilogramos - 9));
+
+    }
+
+
+    let respuesta = {
+      precio: cantidad,
+      "zona1": "500",
+      "zona2": "500"
+    }
+
+    return respuesta;
   }
 
-  @get('/prueba')
-  @response(200, {
-    description: 'Array of Postales model instances',
-    content: {
-      'application/json': {
-        schema: {
-          type: 'array',
-          items: getModelSchemaRef(Estados, {includeRelations: true}),
-        },
-      },
-    },
-  })
-  async Estado(
 
-  ): Promise<Estados[]> {
-    let estado = this.estadosRepository.find({where: {cod_estado: 9}, fields: ['zona']});
-    return estado;
-  }
 
 }

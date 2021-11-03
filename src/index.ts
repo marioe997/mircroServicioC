@@ -9,7 +9,7 @@ export async function main(options: ApplicationConfig = {}) {
 
   const url = app.restServer.url;
   console.log(`Server is running at ${url}`);
-  console.log(`Try ${url}/ping`);
+  console.log(`Try ${url}/explorer`);
 
   return app;
 }
@@ -18,7 +18,7 @@ if (require.main === module) {
   // Run the application
   const config = {
     rest: {
-      port: +(process.env.PORT ?? 3000),
+      port: +(process.env.PORT ?? 3069),
       host: process.env.HOST,
       // The `gracePeriodForClose` provides a graceful close for http/https
       // servers with keep-alive clients. The default value is `Infinity`
