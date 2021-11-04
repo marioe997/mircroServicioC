@@ -37,6 +37,8 @@ export class PostalesController {
     @param.path.number('c_postal') c_postal: number,
     @param.path.number('kilogramos') kilogramos: number,
     @param.path.string('formaPago') c_poformaPagostal: string,
+    @param.path.string('cupon') cupon: string,
+
   ): Promise<object> {
 
     let postal = this.postalesRepository.find({where: {d_codigo: c_postal}, fields: ['c_estado']});
@@ -107,7 +109,8 @@ export class PostalesController {
 
     let respuesta = {
       precio: cantidad,
-      "metodo": c_poformaPagostal
+      "metodo": c_poformaPagostal,
+      'cupon': cupon
     }
 
     return respuesta;
