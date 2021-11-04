@@ -66,9 +66,7 @@
     "@loopback/authentication-jwt": "^0.9.4",
     "@loopback/security": "^0.5.4",
     "@types/bcryptjs": "^2.4.2",
-    "bcryptjs": "^2.4.3"
-  },
-  "devDependencies": {
+    "bcryptjs": "^2.4.3",
     "@loopback/build": "^7.0.2",
     "source-map-support": "^0.5.20",
     "@loopback/testlab": "^3.4.4",
@@ -79,5 +77,6 @@
     "@loopback/http-caching-proxy": "^2.3.4",
     "@types/lodash": "^4.14.168",
     "lodash": "^4.17.21"
-  }
+  },
+  "devDependencies": {}
 }
