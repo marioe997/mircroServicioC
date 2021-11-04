@@ -106,11 +106,12 @@ export class PostalesController {
 
     }
 
+    //microservicio B
 
     let respuesta = {
       precio: cantidad,
       "metodo": c_poformaPagostal,
-      'cupon': cupon
+      'cupon': cupon,
     }
 
     return respuesta;
