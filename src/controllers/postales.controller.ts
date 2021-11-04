@@ -20,7 +20,7 @@ export class PostalesController {
     public preciosRepository: PreciosRepository,
   ) { }
 
-  @get('/postales/{c_postal}/{kilogramos}/{formaPago}')//objeto
+  @get('/postales/{c_postal}/{kilogramos}/{formaPago}/{cupon}')//objeto
   @response(200, {
     description: 'Array of Postales model instances',
     content: {
