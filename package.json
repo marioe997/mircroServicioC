@@ -35,8 +35,7 @@
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "npm run clean && npm run build",
-    "heroku-prebuild": "echo This runs before Heroku installs dependencies.",
-    "heroku-postbuild": "npm run build"
+    "heroku-prebuild": "npm run build"
   },
   "repository": {
     "type": "git",
