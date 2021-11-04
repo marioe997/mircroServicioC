@@ -107,8 +107,7 @@ export class PostalesController {
 
     let respuesta = {
       precio: cantidad,
-      "zona1": "500",
-      "zona2": "500"
+      "metodo": c_poformaPagostal
     }
 
     return respuesta;
