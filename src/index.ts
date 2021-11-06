@@ -1,4 +1,3 @@
-import * as Sentry from "@sentry/node";
 import {ApplicationConfig, MicroServicioCApplication} from './application';
 
 
@@ -40,28 +39,3 @@ if (require.main === module) {
   });
 }
 
-
-
-
-Sentry.init({
-  dsn: "https://cd258629a0db41138ad171dc36dd0166@o1059778.ingest.sentry.io/6048665",
-
-  // We recommend adjusting this value in production, or using tracesSampler
-  // for finer control
-  tracesSampleRate: 1.0,
-});
-
-const transaction = Sentry.startTransaction({
-  op: "test",
-  name: "My First Test Transaction",
-});
-
-setTimeout(() => {
-  try {
-    //foo();
-  } catch (e) {
-    Sentry.captureException(e);
-  } finally {
-    transaction.finish();
-  }
-}, 99);
