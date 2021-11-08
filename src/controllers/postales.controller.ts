@@ -37,7 +37,7 @@ export class PostalesController {
     @param.path.number('c_postal') c_postal: number,
     @param.path.number('kilogramos') kilogramos: number,
     @param.path.string('formaPago') c_poformaPagostal: string,
-    @param.path.string('cupon') cupon: string,
+    @param.path.string('cupon') cupon?: string,
 
   ): Promise<any> {
 
@@ -111,6 +111,7 @@ export class PostalesController {
       precio: cantidad,
       "metodo": c_poformaPagostal,
       'cupon': cupon,
+      'zona': zona[0]
     }
 
     return respuesta;
